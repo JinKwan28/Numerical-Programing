@@ -254,4 +254,52 @@ void ode(double myFunc(const double _t, const double _y), double _y[], double _t
 		break;
 	}
 }
-//========================================================================================================================================//
+//==================================================================2nd ODE IVP====================================================================//
+
+void sys2RK2 (void myFunc(const double _t, const double _Y[], double _dYdt[]), double _y1[], double _y2[], double _t0, double _tf, double _h, double _y1_init, double _y2_init) {
+
+	register Count i;
+
+
+
+	double N             = (_tf - _t0) / _h;
+	double t[101]        = { 0.0, };
+	double K1[2]         = { 0.0, };   //[K1_y, k1_z]
+	double K2[2]         = { 0.0, };    //[K2_y, K2_z]
+	double Yin_k1[2]     = { 0.0, };    //[y   , y_dot] k1
+	double Yin_k2[2]     = { 0.0, };   //[y   , y_dot] k2
+	double K1_y = 0.0;
+	double K1_z = 0.0;
+	double k2_y = 0.0;
+	double K2_z = 0.0;
+	double C2            = 0.5;
+	double C1            = 0.5;
+	t[0]                 = _t0;
+	_y1[0]               = _y1_init;
+	_y2[0]               = _y2_init;
+
+	LOOP(i, N, 0, 1) {
+		t[i + 1] = t[i] + _h;
+		Yin_k1[0] = _y1[i];       // myfunc 2nd order diff equ(t, y[], dydt[](slope->K)-> input y, y_dot
+		Yin_k1[1] = _y2[i];
+		myFunc(t[i], Yin_k1,K1);           //K1이 dydt의 매개변수로 들어간다 
+		double K1_y = K1[0];              //K1_y
+		double K1_z = K1[1];              //K1_z
+		printf("%f\n", K1_y);
+		Yin_k2[0] = _y1[i] + K1_y * _h;
+		Yin_k2[1] = _y2[i] + K1_z * _h;
+
+		K2[0] = K1[0] + K1_y * _h;
+		K2[1] = K1[1] + K1_z * _h;
+		myFunc(t[i] + _h, Yin_k2, K2);
+
+		double K2_y = K2[0];               //K2_y
+		double K2_z = K2[1];               //K2_z
+                 
+		_y1[i + 1] = _y1[i] + 0.5 * (K1_y + K2_y) * _h;
+		_y2[i + 1] = _y2[i] + 0.5 * (K1_z + K2_z) * _h;
+
+	}
+
+	
+}

@@ -29,7 +29,7 @@ void gradient1D(double x[], double y[], double dydx[], int m);
 void gradientFunc(double func(const double x), double x[], double dydx[], int m);
 //=================================================Integration===================================================
 // Integration using rectangular method for discrete data inputs
-double myFunc_inte(const double _x);
+
 double IntegrateRect(double _x[], double _y[], int _m);
 double trapz(double _x[], double _y[], int _m);
 double Simpson13(double myFunc(const double _x), double _a, double _b, int _m);
@@ -41,10 +41,11 @@ void odeEM  (double myFunc(const double _t, const double _y), double _y[], doubl
 void odeRK2 (double myFunc(const double _t, const double _y), double _y[], double _t0, double _tf, double _h);
 void odeRK3 (double myFunc(const double _t, const double _y), double _y[], double _t0, double _tf, double _h);
 void ode    (double myFunc(const double _t, const double _y), double _y[], double _t0, double _tf, double _h,int method,int row);
+void sys2RK2(void func(const double _t, const double _Y[], double _dYdt[]), double _y1[], double _y2[], double _t0, double _tf, double _h, double _y1_init, double _y2_init);
 enum ode {EU=1,EM,RK2,RK3};
-//void func_call(double func(const double x), double xin);
-//
-//// Return the dy/dx results for the target equation. (truncation error: O(h^2))
+
+
+
 //void gradientFunc(double func(const double x), double x[], double dydx[], int m);
 double myFunc(const double _x);
 void printVec(double* _vec, int _row);

@@ -43,10 +43,11 @@ extern double DifThreeBack(double _t[], double _X[], int _index);
 // Integration using rectangular method for discrete data inputs
 
 extern double IntegrateRect(double _x[], double _y[], int _m);
-extern double Integramid(double _x[], double _y[], int _m);
+extern double Integralmid(double _x[], double _y[], int _m);
 extern double trapz(double _x[], double _y[], int _m);
 extern double trapz_func(double myFunc(const double _x), double _a, double _b, int _m);
-extern double Simpson13(double myFunc(const double _x), double _a, double _b, int _m);
+extern double Simpson13(double _x[], double _a, double _b, int _m);
+extern double Simpson13func(double myFunc(const double _x), double _a, double _b, int _m);
 extern double Simpson38(double myFunc(const double x), double _a, double _b, int _m);
 
 

@@ -187,7 +187,7 @@ double IntegrateRect(double _x[], double _y[], int _m) {
 	return I;
 }
 
-double Integramid(double _x[], double _y[], int _m) {
+double Integralmid(double _x[], double _y[], int _m) {
 	register Count i;
 
 	int N = _m - 1;
@@ -224,7 +224,25 @@ double trapz_func(double myFunc(const double _x), double _a, double _b, int _m) 
 		return Tra;
 }
 
-double Simpson13(double myFunc(const double _x), double _a, double _b, int _m) {  // (function, initial value, final value, iteration number
+double Simpson13(double _x[], double _a, double _b, int _m) {  // (function, initial value, final value, iteration number
+	int N = _m - 1;	
+	double h =(_b - _a) / N;
+	register Count i;
+	double Simpson13 = 0.0;
+
+	Simpson13 = _x[0] + _x[N] + _x[N-1];
+	
+	LOOP(i, _m - 2, 1, 2) {
+		Simpson13 = Simpson13 + (4 * _x[i] + 2 * _x[i+1]);
+
+	}
+	
+
+	return Simpson13 * (h / 3);
+
+}
+
+double Simpson13func(double myFunc(const double _x), double _a, double _b, int _m) {  // (function, initial value, final value, iteration number
 	
 	register Count i;
 
@@ -265,7 +283,7 @@ double Simpson38(double myFunc(const double x), double _a, double _b, int _m) {
 
 void odeEU(double myFunc(const double _t, const double _y), double _y[], double _t0, double _tf, double _h,double _t[]) {
 	register Count i;
-	double N        = (_tf - _t0) / _h +1.0;
+	double N        = ((_tf - _t0) / _h) +1.0;
 	//double t[101]  = { 0.0, };
 
 	_t[0]   = _t0;
@@ -281,7 +299,7 @@ void odeEU(double myFunc(const double _t, const double _y), double _y[], double 
 
 void odeEM(double myFunc(const double _t, const double _y), double _y[], double _t0, double _tf, double _h,double _t[]) {
 	register Count i;
-	double N       = (_tf - _t0) / _h +1.0;
+	double N       = ((_tf - _t0) / _h) +1.0;
 	//double t[101]  = { 0.0, };
 	double Slope1  = 0.0;
 	double Slope2  = 0.0;
